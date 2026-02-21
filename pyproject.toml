@@ -1,0 +1,97 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+# ==============================
+# PROJECT METADATA
+# ==============================
+[project]
+name = "rai-rag"
+version = "0.1.0"
+description = "Risk-Aware Introspective Retrieval-Augmented Generation (RAI-RAG)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "Proprietary"}
+authors = [
+    {name = "WarBees-AI", email = "warbeesai@outlook.com"}
+]
+
+keywords = [
+    "RAG",
+    "AI safety",
+    "LLM alignment",
+    "retrieval augmented generation",
+    "trustworthy AI",
+    "AI security"
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+# ==============================
+# CORE DEPENDENCIES
+# ==============================
+dependencies = [
+    "numpy",
+    "tqdm",
+    "pyyaml",
+    "jinja2",
+    "scikit-learn",
+]
+
+# ==============================
+# OPTIONAL HEAVY DEPENDENCIES
+# (install only if needed)
+# ==============================
+[project.optional-dependencies]
+
+llm = [
+    "torch",
+    "transformers",
+    "accelerate",
+    "sentence-transformers"
+]
+
+retrieval = [
+    "faiss-cpu",
+    "rank-bm25"
+]
+
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "isort"
+]
+
+# ==============================
+# PACKAGE DISCOVERY
+# ==============================
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["rai_rag*"]
+
+# ==============================
+# PYTEST CONFIG
+# ==============================
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
+
+# ==============================
+# BLACK FORMATTER
+# ==============================
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+
+# ==============================
+# ISORT
+# ==============================
+[tool.isort]
+profile = "black"
+line_length = 88
+
