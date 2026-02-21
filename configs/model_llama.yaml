@@ -1,0 +1,18 @@
+# Override model section for LLaMA-family instruct models
+# Merge this on top of base.yaml in your config loader.
+
+model:
+  provider: "hf"
+  name_or_path: "meta-llama/Meta-Llama-3.1-8B-Instruct"
+  tokenizer_name_or_path: null
+
+  max_input_tokens: 8192
+  max_output_tokens: 1024
+  temperature: 0.2
+  top_p: 0.9
+  repetition_penalty: 1.05
+
+  lora:
+    enabled: false
+    path: null
+

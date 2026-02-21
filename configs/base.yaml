@@ -1,0 +1,143 @@
+# RAI-RAG: Base configuration (default experiment profile)
+# This file is the main entry point for demo_chat.py / eval_all.py
+
+project:
+  name: "rai-rag"
+  run_name: "dev_default"
+  version: "0.1.0"
+  seed: 7
+
+runtime:
+  device: "auto"          # auto|cpu|cuda
+  dtype: "auto"           # auto|float16|bfloat16|float32
+  num_threads: 8
+  deterministic: true
+
+logging:
+  level: "INFO"           # DEBUG|INFO|WARNING|ERROR
+  log_dir: "runs/logs"
+  save_traces: true
+  save_evidence_audit: true
+  redact_pii_in_logs: true
+
+paths:
+  data_dir: "data"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  corpus_path: "data/processed/corpus.jsonl"
+
+  index_dir: "data/processed/index"
+  bm25_path: "data/processed/index/bm25.json"
+  faiss_index_path: "data/processed/index/faiss.index"
+  faiss_meta_path: "data/processed/index/faiss_meta.jsonl"
+
+  prompts_dir: "prompts"
+  prompt_introspection: "prompts/introspection.jinja"
+  prompt_retrieval_gate: "prompts/retrieval_gate.jinja"
+  prompt_evidence_filter: "prompts/evidence_filter.jinja"
+  prompt_refusal: "prompts/refusal_template.jinja"
+
+model:
+  # This is the default backbone profile; you can override by merging model_llama.yaml / model_qwen.yaml
+  provider: "hf"                  # hf|openai|vllm (future)
+  name_or_path: "Qwen/Qwen2.5-7B-Instruct"
+  tokenizer_name_or_path: null
+  max_input_tokens: 8192
+  max_output_tokens: 1024
+  temperature: 0.2
+  top_p: 0.9
+  repetition_penalty: 1.05
+
+  # optional adapters
+  lora:
+    enabled: false
+    path: null
+
+rag:
+  # RAG configuration is separated into rag.yaml for cleanliness;
+  # pipeline should allow this section to be overridden by configs/rag.yaml.
+  enabled: true
+  backend: "hybrid"         # bm25|faiss|hybrid
+  top_k: 8
+  min_keep_docs: 2
+
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+  reranker:
+    enabled: false
+    model: null
+
+introspection:
+  enabled: true
+  policy_profile: "default"  # default|strict|research
+  output_tags:
+    reasoning_step: "Reasoning_step"
+    ir_json: "IR_JSON"
+    output: "Output"
+
+retrieval_gate:
+  enabled: true
+  # thresholds used by your gate logic; conservative defaults
+  risk_to_no_retrieve: ["high"]
+  retrieval_risk_to_restrict: ["medium", "high"]
+  ambiguity_to_restrict: true
+  default_backend: "hybrid"
+  restrict:
+    top_k: 4
+    max_snippet_chars: 600
+    time_window_days: null
+    domain_allowlist: []   # e.g., ["who.int", "cdc.gov", "nist.gov"]
+
+evidence_filter:
+  enabled: true
+  score_range: [-1.0, 1.0]
+  drop_if_score_below: 0.0
+  max_snippets_per_doc: 2
+  max_snippet_chars: 240
+  if_insufficient_evidence: "safe_high_level"  # safe_high_level|restrict_retrieval|refuse
+
+safety:
+  enabled: true
+  refusal_enabled: true
+  # categories are aligned with your introspection template
+  categories:
+    - benign_info
+    - medical
+    - legal
+    - financial
+    - self_harm
+    - violence
+    - hate_extremism
+    - cyber
+    - privacy_pii
+    - sexual
+    - weapons
+    - illicit_drugs
+    - other
+
+search:
+  enabled: true
+  method: "si_mcts"         # si_mcts|best_of_n|none
+  best_of_n:
+    n: 4
+  si_mcts:
+    enabled: false          # turn on when simcts is implemented
+    max_depth: 6
+    num_simulations: 64
+    c_puct: 1.2
+    safety_prune_threshold: 0.0
+    cache_enabled: true
+
+generation:
+  mode: "grounded_safe"     # grounded_safe|safe_high_level|refuse
+  include_citations: true
+  include_safety_justification: false
+
+eval:
+  enabled: true
+  max_items: 0              # 0 = all
+  suites:
+    - "benign"
+    - "jailbreak"
+    - "retrieval_attack"
+  output_dir: "runs/eval"
+

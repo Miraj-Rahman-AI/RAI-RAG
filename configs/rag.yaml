@@ -1,0 +1,41 @@
+# RAI-RAG Retrieval configuration (standalone)
+# Keep retrieval knobs here for reproducibility.
+
+rag:
+  enabled: true
+  backend: "hybrid"                  # bm25|faiss|hybrid
+  top_k: 8
+  min_keep_docs: 2
+
+  query_rewrite:
+    enabled: true
+    mode: "risk_sanitized"           # risk_sanitized|none
+    denylist_terms:
+      - "step-by-step"
+      - "exploit"
+      - "weapon"
+      - "jailbreak"
+      - "bypass"
+      - "malware"
+
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+
+  bm25:
+    enabled: true
+    k1: 1.2
+    b: 0.75
+
+  faiss:
+    enabled: true
+    metric: "ip"                     # ip|l2  (ip recommended if embeddings normalized)
+    normalize_embeddings: true
+
+  reranker:
+    enabled: false
+    model: null
+
+  citations:
+    enabled: true
+    style: "inline_brackets"         # inline_brackets|footnote|none
+    max_citations: 5
+

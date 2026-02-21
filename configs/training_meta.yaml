@@ -1,0 +1,56 @@
+# Meta-learned safety adaptation (dual-loop) configuration
+# Used by scripts/train_meta.py (and rai_rag.meta.outer_loop.meta_train when implemented)
+
+meta_training:
+  enabled: true
+  seed: 7
+  out_dir: "checkpoints/meta"
+
+  task_families:
+    # Families you listed: role-play, forced-prefix, narrative camouflage
+    families:
+      - name: "role_play"
+        weight: 1.0
+      - name: "forced_prefix"
+        weight: 1.0
+      - name: "narrative_camouflage"
+        weight: 1.0
+      - name: "retrieval_driven_jailbreak"
+        weight: 1.2
+
+  data:
+    dir_train_path: "data/dir/dir_train.jsonl"
+    dir_val_path: "data/dir/dir_val.jsonl"
+    preference_pairs_path: "data/preference/pairs.jsonl"
+
+  inner_loop:
+    # adapts θ_r (retrieval/safety adapters) on sampled tasks
+    steps: 3
+    lr: 1.0e-4
+    batch_size: 8
+    grad_clip: 1.0
+
+  outer_loop:
+    # meta-update across task family batches
+    iterations: 2000
+    lr: 5.0e-5
+    eval_every: 100
+    save_every: 200
+
+  objectives:
+    # Composite objective idea: R(H,S,I)=F(S)H + S + λI (you referenced)
+    lambda_introspection: 0.2
+    lambda_safety: 1.0
+    lambda_helpfulness: 0.4
+
+  curriculum:
+    enabled: true
+    schedule: "progressive_hardening"  # progressive_hardening|flat
+    start_difficulty: 0.2
+    end_difficulty: 1.0
+    steps: 5
+
+  checkpoints:
+    save_best_on: "safety"           # safety|helpfulness|composite
+    keep_last_k: 3
+
