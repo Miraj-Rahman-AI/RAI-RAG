@@ -1,4 +1,5 @@
 # Risk-Aware Introspective RAG (RAI-RAG)
+[![Read Article](https://img.shields.io/badge/Medium-Full%20Article-black?logo=medium)](https://medium.com/@miraj.ai/risk-aware-introspective-rag-building-safety-aligned-retrieval-systems-for-trustworthy-ai-6be3738d2a6c)
 
 **RAI-RAG** is a research framework for **safety-aligned Retrieval-Augmented Generation (RAG)** that treats **retrieval as a safety-critical decision**, rather than a neutral preprocessing step.  
 It extends **introspective reasoning, safety-dominant search, and meta-learning** to control *whether to retrieve*, *what evidence to use*, and *how retrieved knowledge influences generation*.
@@ -271,7 +272,6 @@ pip install -e .
 ##  Author
 **[Miraj Rahman](https://github.com/Miraj-Rahman-AI)**  
 AI Researcher | Autonomous Agents | RAG Systems | Trustworthy AI
-
 
 
 ##  Support
