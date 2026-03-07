@@ -267,7 +267,17 @@ cd rai-rag
 ```
 pip install -e .
 ```
-
+```
+- `rai_rag/` — core package implementation
+- `configs/` — configuration files for experiments and runtime settings
+- `prompts/` — prompt templates and prompt assets
+- `scripts/` — runnable scripts for demos, experiments, or pipelines
+- `tests/` — validation and test cases
+- `docs/` — additional documentation
+- `notebook/` — notebooks for exploration and analysis
+- `assets/` — figures and media used in the project
+- `pyproject.toml` — project metadata and dependency configuration
+```
 
 ##  Author
 **[Miraj Rahman](https://github.com/Miraj-Rahman-AI)**  
