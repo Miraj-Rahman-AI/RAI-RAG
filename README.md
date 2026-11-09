@@ -16,6 +16,9 @@
 RAI-RAG integrates structured introspective reasoning, risk-aware retrieval gating, evidence-level safety alignment, Safety-Informed Monte Carlo Tree Search (SI-MCTS), and meta-learned safety adaptation to control whether external knowledge should be retrieved, which evidence should be retained, and how retrieved information influences final generation.
 
 ---
+> [!CAUTION] 
+> $\color{red}{\textsf{\textbf{⚠ Warning: Harmful or offensive content may be present for research and educational purposes only.}}}$
+---
 
 ## Table of Contents
 
@@ -35,11 +38,9 @@ RAI-RAG integrates structured introspective reasoning, risk-aware retrieval gati
 - [14. Experimental Evaluation](#14-experimental-evaluation)
 - [15. Research Scope and Limitations](#15-research-scope-and-limitations)
 - [16. Future Research Directions](#16-future-research-directions)
-- [17. Author](#17-author)
-- [18. Citation](#18-citation)
-- [19. License and Usage Restrictions](#19-license-and-usage-restrictions)
+- [17. License and Usage Restrictions](#17-license-and-usage-restrictions)
 
----
+
 
 ## 1. Overview
 
@@ -68,7 +69,6 @@ Unlike conventional RAG systems that retrieve documents unconditionally, RAI-RAG
 - Meta-Learned Safety Adaptation.
 - Trustworthy Retrieval-Augmented Generation.
 
----
 
 ## 2. Research Motivation
 
@@ -89,9 +89,7 @@ For example:
 - Retrieved evidence may manipulate the model's reasoning.
 - A grounded response may violate applicable safety policies.
 
-These issues demonstrate that retrieval relevance and evidence safety are different objectives.
-
-A document can be highly relevant to a query while still being unsafe to use.
+These issues demonstrate that retrieval relevance and evidence safety are different objectives. A document can be highly relevant to a query while still being unsafe to use.
 
 ### Research Questions
 
@@ -104,7 +102,6 @@ RAI-RAG investigates the following questions:
 5. How can search over reasoning and retrieval trajectories improve safety?
 6. How can safety behavior generalize across different jailbreak task families and distribution shifts?
 
----
 
 ## 3. Core Research Problem
 
@@ -239,7 +236,6 @@ The architecture separates:
 
 The intended modularity allows different LLM backbones, retrievers, safety judges, and search strategies to be evaluated independently.
 
----
 
 ## 5. Mathematical Formulation
 
@@ -384,7 +380,6 @@ The precise operational definitions, score ranges, normalization procedures, and
 
 **Important:** This is the documented research formulation, not a claim that a particular reward model has already been trained or validated.
 
----
 
 ## 6. High-Level Architecture
 
@@ -456,7 +451,6 @@ flowchart TD
 | 4 | Evidence Safety Selection | Retrieve candidate documents and filter unsafe evidence. |
 | 5 | Answer Synthesis | Generate a grounded response under applicable safety constraints. |
 
----
 
 ## 7. System Components
 
@@ -592,7 +586,6 @@ Declines requests that cannot be safely fulfilled and provides appropriate alter
 
 Optional test-time selection can evaluate multiple candidate responses using safety and helpfulness signals.
 
----
 
 ## 8. Execution Flow
 
@@ -634,7 +627,6 @@ The complete execution pipeline can be summarized as follows:
 
 The central design principle is that retrieved knowledge should influence generation only after passing the relevant evidence safety evaluation.
 
----
 
 ## 9. Safety-Informed MCTS
 
@@ -679,7 +671,6 @@ Its intended capabilities include:
 
 The exact search policy, exploration formula, pruning thresholds, and reward implementation should be documented alongside the SI-MCTS source code.
 
----
 
 ## 10. Meta-Learned Safety Adaptation
 
@@ -713,7 +704,6 @@ The objective is to improve generalization to previously unseen or modified atta
 
 The exact meta-learning algorithm and update rules must be specified by the corresponding implementation.
 
----
 
 ## 11. Repository Structure
 
@@ -856,7 +846,6 @@ rai-rag/
 
 **Repository note:** This structure describes the intended modular architecture. A directory or filename in this tree should not be interpreted as proof that the corresponding functionality has already been implemented or validated.
 
----
 
 ## 12. Installation
 
@@ -911,7 +900,6 @@ The editable installation uses the project's `pyproject.toml` configuration.
 
 Additional model, retrieval, and training dependencies should be installed according to the actual dependency configuration.
 
----
 
 ## 13. Configuration
 
@@ -957,7 +945,6 @@ The safety configuration is intended to manage:
 
 The exact available configuration keys depend on the implementation in the corresponding modules.
 
----
 
 ## 14. Experimental Evaluation
 
@@ -1020,7 +1007,6 @@ Experimental reports should document:
 
 No numerical performance claims are made in this README because the uploaded project description does not provide verified experimental results.
 
----
 
 ## 15. Research Scope and Limitations
 
@@ -1050,7 +1036,6 @@ The following details require explicit implementation and experimental validatio
 
 The proposed architecture should not be interpreted as a guarantee that every retrieval-related attack can be prevented.
 
----
 
 ## 16. Future Research Directions
 
@@ -1084,37 +1069,12 @@ Investigate whether the framework maintains safety performance when the retrieva
 
 Evaluate RAI-RAG across multiple models, retrieval systems, and safety benchmarks.
 
----
 
-## 17. Author
-
-**[Miraj Rahman](https://github.com/Miraj-Rahman-AI)**
-
-AI Researcher | Autonomous Agents | RAG Systems | Trustworthy AI
-
----
-
-## 18. Citation
-
-If you use this research framework in academic work, please refer to the associated research article:
-
-**Risk-Aware Introspective RAG: Building Safety-Aligned Retrieval Systems for Trustworthy AI**
-
-[Read the article on Medium](https://medium.com/@miraj.ai/risk-aware-introspective-rag-building-safety-aligned-retrieval-systems-for-trustworthy-ai-6be3738d2a6c)
-
-A formal BibTeX citation can be added when the publication metadata is available.
-
----
-
-## 19. License and Usage Restrictions
+## 17. License and Usage Restrictions
 
 Copyright © 2026 Mirage-AI. All rights reserved.
 
-No permission is granted to use, modify, distribute, or reproduce this software in any form.
-
-This repository is provided for viewing purposes only.
-
-No open-source license is granted by this repository.
+No permission is granted to use, modify, distribute, or reproduce this software in any form. This repository is provided for viewing purposes only. No open-source license is granted by this repository.
 
 ---
 
