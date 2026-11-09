@@ -1078,12 +1078,9 @@ No permission is granted to use, modify, distribute, or reproduce this software 
 
 ---
 
+
 <p align="center">
-
-**Risk-Aware Introspective RAG (RAI-RAG)**
-
-<br>
-
-*Aligning Evidence Access for Trustworthy Retrieval-Augmented Generation.*
-
+  <strong>Risk-Aware Introspective RAG (RAI-RAG)</strong><br>
+  <em>Aligning Evidence Access for Trustworthy Retrieval-Augmented Generation.</em>
 </p>
+
